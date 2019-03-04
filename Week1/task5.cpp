@@ -17,19 +17,13 @@ int main(){
         newindex =i;
         temp = M[i];
          for (int j = i+1; j < n; j++) {
-             //Если текущий элемент меньше последующих, то менем
+             //Если текущий элемент меньше последующих, то сохраняем новое значениие и индекс
             if(temp > M[j]){
               temp = M[j];
               newindex = j;
             }
          }
-        // while(j<n){
-        //     if(temp>M[j]){
-        //         temp = M[j];
-        //         newindex =j;
-        //     }
-        //     j++;
-        // }
+        //Если изменилось, то производиться замена
           if(i!=newindex){
                 M[newindex] = M[i];
                 M[i] = temp;
