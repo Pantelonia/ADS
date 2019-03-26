@@ -1,41 +1,41 @@
-#include <fstream>
-#include <string>
+#include "edx-io.hpp"
+
 using namespace std;
 
+
 int main() {
-	ifstream input("input.txt");
-	ofstream output("output.txt");
-	char command;
-	long N, min, head, min_head, tail, min_tail;
-	N = head = min_head = 0;
-	min_tail = tail = -1;
-	input >> N;
+	long N;
+	io >> N;
+	char action;
 	long* queue = new long[N];
-	long* queue_of_min = new long[N];
-	for (long i = 0; i < N; i++)
-	{
-		input >> command;
-		switch (command)
+	long offset = -1;
+	long head = 0;
+	long *minQueue = new long[N];
+	long minOffset = -1;
+	long minHead = 0;
+
+	for (long i = 0; i < N; i++) {
+		io >> action;
+		switch (action)
 		{
 		case '+':
-			input >> queue[++tail];
-			while (min_head - min_tail >= 0 && queue[tail] < queue_of_min[min_tail]) {
-				min_tail--;
+			io >> queue[++offset];
+			
+			while (minOffset - minHead >= 0 && minQueue[minOffset] > queue[offset]) {
+				minOffset--;
 			}
-
-			queue_of_min[++min_tail] = queue[tail];
-
+			minQueue[++minOffset] = queue[offset];
 			continue;
 		case '-':
-			if (queue[head] == queue_of_min[min_head]) {
-				min_head++;
+	
+			if (queue[head] == minQueue[minHead]) {
+				minHead++;
 			}
 			head++;
 			continue;
-		case'?':
-			output << queue_of_min[min_head] << '\n';
+		case '?':
+			io << minQueue[minHead] << '\n';
 			continue;
-
 		}
 
 	}
